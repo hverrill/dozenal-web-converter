@@ -1,10 +1,12 @@
 {
+  "manifest_version": 3,
   "name": "Dozenal Web Converter",
   "description": "An amateur extension that changes numbers on a webpage from decimal to dozenal.",
   "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage", "activetab", "scripting"]
+  
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "run_at": "document_end",
+    "js": ["convert.js"]
+  }]
 }
