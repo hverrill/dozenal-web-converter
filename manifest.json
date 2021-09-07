@@ -8,5 +8,8 @@
     "matches": ["http://*/*", "https://*/*"],
     "run_at": "document_end",
     "js": ["convert.js"]
-  }]
+  }],
+  "permissions": [
+    "activeTab"
+  ]
 }

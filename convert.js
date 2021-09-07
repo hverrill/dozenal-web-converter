@@ -1,51 +1,38 @@
-console.log("HEY");
+console.log("Dozenal Converter Converting Page!");
 function main() {
-    var body = document.querySelectorAll("body")[0];
-    var bodyText = body.innerText;
-    console.log(bodyText);
+    var pageElements = document.querySelectorAll("span", "div", "li", "ul", "footer", "h1", "h2", "h3", "h4", "h5", "h6");
+    // var bodyText = body.in;
+    // console.log(document);
     var regex = /\d+/g;
-
-    var matches = bodyText.match(regex);  // creates array from matches
-    matches.forEach((match) => {
-        console.log("MATCH:", match);
-        console.log("CONVERSION:", parseInt(match, 12));
-        console.log("CONVERTED:", match);
+    pageElements.forEach((element) => {
+        var text = element.innerText;
+        var matches = text.match(regex);
+        if(matches != null) {
+            matches.forEach((match) => {
+                // matchIndexes.push(text.indexOf(match));
+                if(parseInt(match) != NaN){
+                    var converted = toDozenal(parseInt(match));
+                    
+                    console.log(text = text.replace(match, converted));
+                }
+                element.replaceChild(document.createTextNode(text), element);
+            });
+        }
+        console.log(text);     
     });
-
-    // all.forEach((element) => {
-        
-    // })
-
 }
 main();
 setTimeout(main(), 600);
 
-
-// // background.js
-
-// let color = '#3aa757';
-
-
-// chrome.runtime.onInstalled.addListener(() => {
-//     chrome.storage.sync.set({ color });
-//     console.log('Default background color set to %cgreen', `color: ${color}`);
-
-//     var all = document.querySelectorAll();
-//     for (var i=0, max=all.length; i < max; i++) {
-//         var textElement = all[i].innerText;
-//         //
-//         // /[\d|,|.|e|E|\+]+
-//         var regex = /\d+/g;
-
-//         var matches = textElement.match(regex);  // creates array from matches
-//         matches.forEach((match) => {
-//             console.log(match);
-//             match = parseInt(parseInt(match), 12).toString;
-//             console.log(match);
-//         });
-
-//         document.write(matches); //5,123.6
-//         textElement.
-//         console.log(all[i].innerHTML);
-//     }
-// });
+function toDozenal(decimalInt) {
+    var res="";
+    var R, Q=Math.floor(Math.abs(decimalInt));
+    while (true) {
+        R = Q % 12;
+        //res = "0123456789𝑥ε".charAt(R)+res;
+        res = "0123456789XE".charAt(R)+res;
+        Q = (Q-R) / 12;
+        if (Q == 0) break;
+    }
+    return ((decimalInt<0) ? "-"+res : res);
+}
